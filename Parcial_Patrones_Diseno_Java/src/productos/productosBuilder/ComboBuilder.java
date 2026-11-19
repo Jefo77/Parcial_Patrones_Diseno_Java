@@ -30,7 +30,8 @@ public class ComboBuilder {
 
     public Combo build() {
         if (platoPrincipal == null && bebida == null) {
-            throw new IllegalStateException("Un combo debe incluir al menos un plato principal o una bebida.");
+            System.out.println("Aviso: Un combo debe tener al menos un plato o una bebida.");
+            return null;
         }
         return new Combo(platoPrincipal, bebida, acompanamiento, postre);
     }

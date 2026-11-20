@@ -7,6 +7,9 @@ public class EstacionCocina extends EstacionRol {
 
     @Override
     public void actualizar(Pedido pedido) {
-
+        if (pedido.getEstado() == EstadoPedido.EN_PREPARACION) {
+            System.out.println(getNombreEstacion() + " Preparar pedido #"
+                    + pedido.getIdPedido() + " (" + pedido.getProductos().size() + " ítems)");
+        }
     }
 }

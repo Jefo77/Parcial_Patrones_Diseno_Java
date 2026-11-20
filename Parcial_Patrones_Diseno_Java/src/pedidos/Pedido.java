@@ -2,6 +2,7 @@ package pedidos;
 
 import productos.productosDecorator.IProducto;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Pedido {
@@ -18,7 +19,9 @@ public class Pedido {
     }
 
     public void agregarProducto(IProducto producto) {
-        this.productos.add(producto);
+        if (producto != null) {
+            this.productos.add(producto);
+        }
     }
 
     public double calcularSubtotal() {
@@ -30,7 +33,9 @@ public class Pedido {
     }
 
     public void agregarObservador(IObservadorPedido observador) {
-        this.observadores.add(observador);
+        if (observador != null && !this.observadores.contains(observador)) {
+            this.observadores.add(observador);
+        }
     }
 
     public void eliminarObservador(IObservadorPedido observador) {
@@ -38,7 +43,7 @@ public class Pedido {
     }
 
     public void cambiarEstado(EstadoPedido nuevoEstado) {
-        if (this.estado != nuevoEstado) {
+        if (this.estado != nuevoEstado && nuevoEstado != null) {
             this.estado = nuevoEstado;
             notificarObservadores();
         }
@@ -46,7 +51,12 @@ public class Pedido {
 
     private void notificarObservadores() {
         for (IObservadorPedido observador : observadores) {
-            observador.actualizar(this);
+            try {
+                observador.actualizar(this);
+            } catch (Exception e) {
+                System.err.println("Error al notificar observador: " + e.getMessage());
+            }
+
         }
     }
 
@@ -59,6 +69,6 @@ public class Pedido {
     }
 
     public List<IProducto> getProductos() {
-        return productos;
+        return Collections.unmodifiableList(productos);
     }
 }

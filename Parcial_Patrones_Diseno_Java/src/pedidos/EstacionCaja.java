@@ -8,5 +8,9 @@ public class EstacionCaja extends EstacionRol {
 
     @Override
     public void actualizar(Pedido pedido) {
+        if (pedido.getEstado() == EstadoPedido.ENTREGADO) {
+            System.out.println(getNombreEstacion() + " Pedido #"
+                    + pedido.getIdPedido() + " entregado - Subtotal: $" + pedido.calcularSubtotal());
+        }
     }
 }

@@ -6,6 +6,12 @@ import productos.productosDecorator.ExtraLeche;
 import productos.productosDecorator.ExtraQueso;
 import productos.productosDecorator.IProducto;
 import productos.productosDecorator.PlatoBase;
+import pedidos.EstadoPedido;
+import pedidos.EstacionCaja;
+import pedidos.EstacionCocina;
+import pedidos.EstacionMesero;
+import pedidos.IObservadorPedido;
+import pedidos.Pedido;
 
 public class App {
     public static void main(String[] args) {
@@ -30,5 +36,27 @@ public class App {
         System.out.println("\nPRUEBA VALIDACIÓN COMBO VACÍO");
         Combo comboVacio = new ComboBuilder().build();
         System.out.println("Resultado combo vacío: " + comboVacio);
+
+        System.out.println("\nPRUEBA PATRÓN OBSERVER");
+        Pedido pedido = new Pedido(1);
+        pedido.agregarProducto(cafeConLeche);
+        if (combo1 != null) {
+            pedido.agregarProducto(combo1);
+        }
+        IObservadorPedido cocina = new EstacionCocina();
+        IObservadorPedido mesero = new EstacionMesero();
+        IObservadorPedido caja = new EstacionCaja();
+        pedido.agregarObservador(cocina);
+        pedido.agregarObservador(mesero);
+        pedido.agregarObservador(caja);
+        System.out.println("\nEstado: EN_PREPARACION");
+        pedido.cambiarEstado(EstadoPedido.EN_PREPARACION);
+        System.out.println("\nRepitiendo EN_PREPARACION (no debe notificar de nuevo)");
+        pedido.cambiarEstado(EstadoPedido.EN_PREPARACION);
+        System.out.println("\nEstado: LISTO");
+        pedido.cambiarEstado(EstadoPedido.LISTO);
+        System.out.println("\nCancelando COCINA y cambiando a ENTREGADO");
+        pedido.eliminarObservador(cocina);
+        pedido.cambiarEstado(EstadoPedido.ENTREGADO);
     }
 }

@@ -7,6 +7,9 @@ public class EstacionMesero extends EstacionRol {
 
     @Override
     public void actualizar(Pedido pedido) {
-
+        if (pedido.getEstado() == EstadoPedido.LISTO) {
+            System.out.println(getNombreEstacion() + " Pedido #"
+                    + pedido.getIdPedido() + " listo para llevar a la mesa/entrega");
+        }
     }
 }

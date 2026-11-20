@@ -6,4 +6,8 @@ public abstract class EstacionRol implements IObservadorPedido {
     public EstacionRol(String nombreEstacion) {
         this.nombreEstacion = nombreEstacion;
     }
+
+    public String getNombreEstacion() {
+        return nombreEstacion;
+    }
 }

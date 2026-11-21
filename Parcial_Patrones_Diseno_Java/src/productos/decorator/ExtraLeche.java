@@ -1,17 +1,20 @@
-package productos.productosDecorator;
+package productos.decorator;
 
 public class ExtraLeche extends AdicionDecorator {
+
+    public static final double PRECIO = 1000;
+
     public ExtraLeche(IProducto producto) {
         super(producto);
     }
 
     @Override
-    public String getDescripcion() {
-        return super.getDescripcion() + "+ Leche";
+    protected String getNombreAdicion() {
+        return "Extra leche";
     }
 
     @Override
     public double getPrecio() {
-        return super.getPrecio() + 2000;
+        return productoEnvuelto.getPrecio() + PRECIO;
     }
 }

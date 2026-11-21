@@ -1,6 +1,5 @@
 package pedidos;
-
 public interface IObservadorPedido {
-    void actualizar(Pedido pedido);
 
+    void actualizar(Pedido pedido);
 }
